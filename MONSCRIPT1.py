@@ -6,11 +6,41 @@ import matplotlib.pyplot as plt
 
 data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique/donnees_projet.csv',delimiter=';')
 
-def MONSCRIPT1(fichier):
+def GRAPH(fichier):
     data=pd.read_csv(fichier,delimiter=';')
     for i in data['id'].items():
-        plt.plot(data.sent_at,data.temp)
+        plt.plot(data['sent_at'],data['temp'])
     plt.show()
+
+def GRAPH2(fichier):
+    data=pd.read_csv(fichier,delimiter=';')
+    dataconst=data.loc[data['id']==1]
+    i=1
+    while i < 7:
+        datainter=data.loc[data['id']==i]
+        i=i+1
+        return datainter
+        #plt.plot(dataconst['sent_at'],datainter['temp'])
+    #plt.show
+
+def GRAPH3(fichier):
+    data=pd.read_csv(fichier,delimiter=';')
+    dataconst=data.loc[data['id']==1]
+    for i in range (1,7):
+        data=data.loc[data['id']==i]
+        plt.plot(dataconst['sent_at'],data['temp'])
+plt.show
+
+
+
+
+def essai(fichier):
+    data=pd.read_csv(fichier,delimiter=';')
+    L=[]
+    for i in data['id'].items():
+        L.append(data.temp)
+    return L
+
 
 data1=data[data['id']==1]
 
