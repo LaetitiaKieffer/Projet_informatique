@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique/donnees_projet.csv',delimiter=';')
+data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet.csv',delimiter=';')
 
 def GRAPH(fichier):
     data=pd.read_csv(fichier,delimiter=';')
@@ -28,7 +28,9 @@ def GRAPH3(fichier):
     dataconst=data.loc[data['id']==1]
     for i in range (1,7):
         data=data.loc[data['id']==i]
-        plt.plot(dataconst['sent_at'],data['temp'])
+        #return dataconst['sent_at']
+        #return data['temp'].astype(object)
+        plt.plot(dataconst['sent_at'],data['temp'].astype(object))
 plt.show
 
 
