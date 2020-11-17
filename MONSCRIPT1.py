@@ -4,6 +4,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
+#import tableau excel
 data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet.csv',delimiter=';')
 
 def GRAPH(fichier):
@@ -28,8 +30,8 @@ def GRAPH3(fichier):
     dataconst=data.loc[data['id']==1]
     for i in range (1,7):
         data=data.loc[data['id']==i]
-        #return dataconst['sent_at']
-        #return data['temp'].astype(object)
+        #return dataconst['sent_at'].shape
+        return data['temp'].astype(object).shape
         plt.plot(dataconst['sent_at'],data['temp'].astype(object))
 plt.show
 
