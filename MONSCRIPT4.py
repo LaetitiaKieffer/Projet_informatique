@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 #import tabeau excel
-data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet.csv',delimiter=';')
+data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet_informatique.csv',delimiter=';')
 
 def CORRELATION(fichier,labels1='var1',labels2='var2'):
     data=pd.read_csv(fichier,delimiter=';')

@@ -14,7 +14,7 @@ data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_pro
 def MAX(fichier,caractéristique,capteur):
     data=pd.read_csv(fichier,delimiter=';')
     data=data.loc[data['id']==capteur]
-    a=0
+    a=data.loc[data.index[0],caractéristique]
     for index,row in data.iterrows():
         if row[caractéristique]>a:
             a=row[caractéristique]
@@ -23,10 +23,10 @@ def MAX(fichier,caractéristique,capteur):
 def MIN(fichier,caractéristique,capteur):
     data=pd.read_csv(fichier,delimiter=';')
     data=data.loc[data['id']==capteur]
-    a=30
-    for k in range (len(data)):
+    a=data.loc[data.index[0],caractéristique]
+    for k in range(data.index[0],data.index[0]+len(data)):
         if data.loc[k,caractéristique]<a:
-            a=data[k,caractéristique]
+            a=data.loc[k,caractéristique]
     return a
 
 def MOYENNE(fichier,caractéristique,capteur):
