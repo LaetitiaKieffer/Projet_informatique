@@ -60,3 +60,14 @@ def MEDIANE(fichier,caractéristique,capteur):
         med+=j
     med=med/len(L)
     return med
+
+def affichercourbes(caractéristique,capteurr):
+    data_capteur=data.loc[data['id']==capteurr]
+    plt.plot_date(matplotlib.dates.date2num(convertion(capteurr)),data_capteur[caractéristique],linestyle="-")
+    plt.title (caractéristique+" as a function of time")
+    plt.xlabel ("date",fontsize=9)
+    plt.ylabel ("temperature",fontsize=9)
+    plt.xticks(rotation='vertical')
+    plt.axhline(y=MIN(fichier,caractéristique,capteurr),label='minimum',color='red')
+    plt.axhline(y=MAX(fichier,caractéristique,capteurr),label='maximum',color='red')
+    plt.show()
