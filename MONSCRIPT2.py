@@ -61,3 +61,4 @@ def MEDIANE(fichier,caractéristique):
     med=med/len(L)
     return med
 
+nn
