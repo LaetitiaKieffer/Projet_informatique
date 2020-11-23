@@ -6,46 +6,31 @@ import matplotlib.pyplot as plt
 #import tabeau excel
 data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet_informatique.csv',delimiter=';')
 
-def alpha1(fichier):
+def alpha(fichier,capteur):
     data=pd.read_csv(fichier,delimiter=';')
+    data=data.loc[data['id']==capteur]
     a=17,27
     b=237,7
-    alpha=[]
-    for index,row in data.iterrows():
-        c=(a*row['temp'])/((b+row['temp'])+np.ln(row['humidity']))
-        alpha.append(c)
-    return alpha
+    Liste_alpha=[]
+    for k in range (len(data)):
+        c=(a*data['temp'][k])/(b+data['temp'][k])+np.log10(data['humidity'][k])
+    return c
 
-def alpha2(fichier):
-    data=pd.read_csv(fichier,delimiter=';')
+def temperature_rosee(fichier,capteur):
     a=17,27
     b=237,7
-    alpha=[]
-    for i in range(len(data)):
-        c=(a*data.loc[i,'temp'])/(b+data.loc[i,'temp']+np.ln(data.loc[i,'humidity']))
-        alpha.append(c)
-    return alpha
+    rosee=[]
+    for j in range(len(alpha(fichier))):
+        rosee.append((b*alpha(fichier)[j])/(a-alpha(fichier)[j]))
+    return rosee
 
-def alpha3(fichier):
-    data=pd.read_csv(fichier,delimiter=';')
-    a=17,27
-    b=237,7
-    alpha=[]
-    for i in range(len(data)):
-        c=(a*data[i]['temp']/(b+data[i]['temp']+np.ln(data[i]['humidity']))
-        alpha.append(c)
-    return alpha
-
-def temperature_rosee(fichier):
-    data=pd.read_csv(fichier,delimiter=';')
-    a=17,27
-    b=237,7
-    return ((b*alpha(fichier))/(a-alpha(fichier)))
-
-def humidex(fichier):
+def humidex(fichier,capteur):
     data=pd.read_csv(fichier,delimiter=';')
     T_air=data['temp']
-    b=5417,7530*((1/273,16)-(1/temperature_rosee(fichier)))
-    c=6,11*np.exp(b)-10
-    d=T_air+0,555*c
-    return d
+    H=[]
+    for i in range(len(temperature_rosee(fichier))):
+        b=5417,7530*((1/273,16)-(1/temperature_rosee(fichier)[i]))
+        c=6,11*np.exp(b)-10
+        d=T_air[i]+0,555*c
+        H.append(d)
+    return H
