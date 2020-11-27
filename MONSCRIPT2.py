@@ -41,7 +41,7 @@ def MOYENNE(fichier,caractéristique,capteur):
 def VARIANCE(fichier,caractéristique,capteur):
     data=pd.read_csv(fichier,delimiter=';')
     var=0
-    moy=MOYENNE(fichier,caractéristique)
+    moy=MOYENNE(fichier,caractéristique,capteur)
     data=data.loc[data['id']==capteur]
     for index,row in data.iterrows():
         var+=(row[caractéristique]-moy)**2
@@ -50,15 +50,13 @@ def VARIANCE(fichier,caractéristique,capteur):
 
 def MEDIANE(fichier,caractéristique,capteur):
     data=pd.read_csv(fichier,delimiter=';')
-    L=[]
-    med=0
     data=data.loc[data['id']==capteur]
-    for index,row in data.iterrows():
-        if row[caractéristique] not in L:
-            L.append(row[caractéristique])
-    for j in L:
-        med+=j
-    med=med/len(L)
+    datatrié=data.sort_values(by=[caractéristique])
+    n=len(data)
+    if n%2==0:
+        med=(datatrié['temp'][int((data.index[0]+n)/2)]+datatrié['temp'][int((data.index[0]+n)/2)+1])/2
+    else:
+        med=datatrié['temp'][int((data.index[0]+n)/2)]
     return med
 
 def affichercourbes(caractéristique,capteurr):
