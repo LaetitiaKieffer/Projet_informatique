@@ -24,7 +24,7 @@ def convertion(capteur):
 
 def affichercourbes(caracteristique,capteurr):
     data_capteur=data.loc[data['id']==capteurr]
-    plt.plot_date(matplotlib.dates.date2num(convertion(capteurr)),data_capteur[caracteristique],label="ligne -",'linewidth')
+    plt.plot_date(matplotlib.dates.date2num(convertion(capteurr)),data_capteur[caracteristique])
     plt.title (caracteristique+" as a function of time")
     plt.xlabel ("date",fontsize=9)
     plt.ylabel ("temperature",fontsize=9)
