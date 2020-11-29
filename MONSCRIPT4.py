@@ -23,6 +23,6 @@ def CORRELATION(fichier,caractéristique1,caractéristique2,capteur):
     c=c/len(data)
     b=np.sqrt(b)
     c=np.sqrt(c)
-    a=a/(len(data)-1)
+    a=a/len(data)
     cov=a/(b*c)
     return cov
