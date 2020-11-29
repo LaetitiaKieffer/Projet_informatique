@@ -8,7 +8,7 @@ data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_pro
 
 def CORRELATION(fichier,caractéristique1,caractéristique2,capteur):
     data=pd.read_csv(fichier,delimiter=';')
-    data=data.loc[data['id']==1]
+    data=data.loc[data['id']==capteur]
     cov=0
     a=0
     b=0
