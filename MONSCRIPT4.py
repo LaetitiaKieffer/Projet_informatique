@@ -6,20 +6,23 @@ import matplotlib.pyplot as plt
 #import tabeau excel
 data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet_informatique.csv',delimiter=';')
 
-def CORRELATION(fichier,labels1='var1',labels2='var2'):
+def CORRELATION(fichier,caractéristique1,caractéristique2,capteur):
     data=pd.read_csv(fichier,delimiter=';')
     data=data.loc[data['id']==1]
     cov=0
-    for k in range(len(data)):
-        a=+(data[labels1][k]-MOYENNE(fichier,labels1))*((data[labels2][k]-MOYENNE(fichier,labels2)))
-    a=a/(len(data)-1)
-    return a
-
-def CORRELATION(fichier,labels1='var1',labels2='var2'):
-    data=pd.read_csv(fichier,delimiter=';')
-    data=data.loc[data['id']==1]
-    cov=0
+    a=0
+    b=0
+    c=0
+    moycar1=MOYENNE(fichier,caractéristique1,capteur)
+    moycar2=MOYENNE(fichier,caractéristique2,capteur)
     for index,row in data.iterrows():
-        a=+(row[labels1]-MOYENNE(fichier)*((row['co2']-MOYENNE(fichier)))
-    a=a/(data.shape[0]-1)
-    return a
+        a=+(row[caractéristique1]-moycar1)*((row[caractéristique2]-moycar2))
+        b=+(row[caractéristique1]-moycar1)**2
+        c=+(row[caractéristique2]-moycar2)**2
+    b=b/len(data)
+    c=c/len(data)
+    b=np.sqrt(b)
+    c=np.sqrt(c)
+    a=a/(len(data)-1)
+    cov=a/(b*c)
+    return cov
