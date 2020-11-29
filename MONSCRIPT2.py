@@ -51,12 +51,12 @@ def VARIANCE(fichier,caractéristique,capteur):
 def MEDIANE(fichier,caractéristique,capteur):
     data=pd.read_csv(fichier,delimiter=';')
     data=data.loc[data['id']==capteur]
-    datatrié=data.sort_values(by=[caractéristique])
+    datatrie=data.sort_values(by=[caractéristique])
     n=len(data)
     if n%2==0:
-        med=(datatrié['temp'][int((data.index[0]+n)/2)]+datatrié['temp'][int((data.index[0]+n)/2)+1])/2
+        med=(datatrie[caractéristique][int(data.index[0]+(n/2)-1)]+datatrie[caractéristique][int(data.index[0]+n/2)])/2
     else:
-        med=datatrié['temp'][int((data.index[0]+n)/2)]
+        med=datatrie[caractéristique][int(data.index[0]+n/2)]
     return med
 
 def affichercourbes(caractéristique,capteurr):
