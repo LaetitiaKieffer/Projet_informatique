@@ -12,8 +12,8 @@ fichier="EIVP_KM.csv"
 data=pd.read_csv(fichier,delimiter=';')
 
 #import tabeau excel Laetitia
-# fichier='/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet_informatique.csv'
-# data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet_informatique.csv',delimiter=';')
+fichier='/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet_informatique.csv'
+data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet_informatique.csv',delimiter=';')
 
 def MAX(fichier,caractéristique,capteur):
     data =pd.read_csv(fichier,delimiter=';')
