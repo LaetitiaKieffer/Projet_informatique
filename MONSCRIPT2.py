@@ -9,7 +9,7 @@ fichier="EIVP_KM.csv"
 data=pd.read_csv(fichier,delimiter=';')
 
 #import tabeau excel
-data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet_informatique.csv',delimiter=';')
+# data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet_informatique.csv',delimiter=';')
 
 def MAX(fichier,caractéristique,capteur):
     data=pd.read_csv(fichier,delimiter=';')
@@ -46,7 +46,7 @@ def VARIANCE(fichier,caractéristique,capteur):
     for index,row in data.iterrows():
         var+=(row[caractéristique]-moy)**2
     var=var/data.shape[0]
-    return var
+    return round(var,2)
 
 def MEDIANE(fichier,caractéristique,capteur):
     data=pd.read_csv(fichier,delimiter=';')
@@ -59,16 +59,24 @@ def MEDIANE(fichier,caractéristique,capteur):
         med=datatrie[caractéristique][int(data.index[0]+n/2)]
     return med
 
-def affichercourbes(caractéristique,capteurr):
+def convertion(capteur):
+    L=len(data[data.id==capteur])
+    Liste=[]
+    for k in range(L):
+        Liste.append(datetime.strptime(data.sent_at.loc[k+data[data.id==capteur].index[0]],"%Y-%m-%d %H:%M:%S+02:00"))
+    return Liste
+
+def affichercourbes(caracteristique,capteurr):
     data_capteur=data.loc[data['id']==capteurr]
-    plt.plot_date(matplotlib.dates.date2num(convertion(capteurr)),data_capteur[caractéristique],linestyle="-")
-    plt.title (caractéristique+" as a function of time")
+    plt.plot_date(matplotlib.dates.date2num(convertion(capteurr)),data_capteur[caracteristique],linestyle="-")
+    plt.title (caracteristique+" as a function of time")
     plt.xlabel ("date",fontsize=9)
     plt.ylabel ("temperature",fontsize=9)
     plt.xticks(rotation='vertical')
-    l1=plt.axhline(y=MIN(fichier,caracteristique,capteurr),label='minimum',color='red')
+    LegendeVariance=matplotlib.patches.Rectangle((0,0),0,0,color='white')
+    l1=plt.axhline(y=MIN(fichier,caracteristique,capteurr),label='minimum',color='mediumvioletred')
     l2=plt.axhline(y=MAX(fichier,caracteristique,capteurr),label='maximum',color='pink')
     l3=plt.axhline(y=MOYENNE(fichier,caracteristique,capteurr),label='maximum',color='magenta')
-    plt.legend([l1,l2,l3], ['minimum', 'maximum', 'moyenne'],loc = 'upper right',frameon = True, title = 'Legende')
-    # plt.legend('variance=VARIANCE(fichier,caracteristique,capteurr)')
+    l4=plt.axhline(y=MEDIANE(fichier,caracteristique,capteurr),label='maximum',color='deeppink')
+    plt.legend([l1,l2,l3,l4,LegendeVariance], ['minimum', 'maximum', 'moyenne','médiane','variance='+str(VARIANCE(fichier,caracteristique,capteurr))],loc ='upper right',frameon = True, title = 'Legende')
     plt.show()
