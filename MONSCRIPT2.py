@@ -2,17 +2,20 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib
 import os
 
+#import tableau excel Joséphine
 os.chdir("C:/EIVP")
 fichier="EIVP_KM.csv"
 data=pd.read_csv(fichier,delimiter=';')
 
-#import tabeau excel
+#import tabeau excel Laetitia
+fichier='/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet_informatique.csv'
 data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet_informatique.csv',delimiter=';')
 
 def MAX(fichier,caractéristique,capteur):
-    data=pd.read_csv(fichier,delimiter=';')
+    data =pd.read_csv(fichier,delimiter=';')
     data=data.loc[data['id']==capteur]
     a=data.loc[data.index[0],caractéristique]
     for index,row in data.iterrows():
@@ -21,7 +24,7 @@ def MAX(fichier,caractéristique,capteur):
     return a
 
 def MIN(fichier,caractéristique,capteur):
-    data=pd.read_csv(fichier,delimiter=';')
+    data =pd.read_csv(fichier,delimiter=';')
     data=data.loc[data['id']==capteur]
     a=data.loc[data.index[0],caractéristique]
     for k in range(data.index[0],data.index[0]+len(data)):
@@ -30,7 +33,7 @@ def MIN(fichier,caractéristique,capteur):
     return a
 
 def MOYENNE(fichier,caractéristique,capteur):
-    data=pd.read_csv(fichier,delimiter=';')
+    data =pd.read_csv(fichier,delimiter=';')
     moy=0
     data=data.loc[data['id']==capteur]
     for index,row in data.iterrows():
@@ -39,7 +42,7 @@ def MOYENNE(fichier,caractéristique,capteur):
     return moy
 
 def VARIANCE(fichier,caractéristique,capteur):
-    data=pd.read_csv(fichier,delimiter=';')
+    data =pd.read_csv(fichier,delimiter=';')
     var=0
     moy=MOYENNE(fichier,caractéristique,capteur)
     data=data.loc[data['id']==capteur]
@@ -49,7 +52,7 @@ def VARIANCE(fichier,caractéristique,capteur):
     return var
 
 def MEDIANE(fichier,caractéristique,capteur):
-    data=pd.read_csv(fichier,delimiter=';')
+    data =pd.read_csv(fichier,delimiter=';')
     data=data.loc[data['id']==capteur]
     datatrie=data.sort_values(by=[caractéristique])
     n=len(data)
@@ -59,16 +62,16 @@ def MEDIANE(fichier,caractéristique,capteur):
         med=datatrie[caractéristique][int(data.index[0]+n/2)]
     return med
 
-def affichercourbes(caractéristique,capteurr):
-    data_capteur=data.loc[data['id']==capteurr]
-    plt.plot_date(matplotlib.dates.date2num(convertion(capteurr)),data_capteur[caractéristique],linestyle="-")
+def affichercourbes_avec_caracteristiques(fichier,caractéristique,capteur):
+    data_capteur=data.loc[data['id']==capteur]
+    plt.plot_date(matplotlib.dates.date2num(convertion(capteur)),data_capteur[caractéristique],linestyle="-",marker=None)
     plt.title (caractéristique+" as a function of time")
     plt.xlabel ("date",fontsize=9)
     plt.ylabel ("temperature",fontsize=9)
     plt.xticks(rotation='vertical')
-    l1=plt.axhline(y=MIN(fichier,caracteristique,capteurr),label='minimum',color='red')
-    l2=plt.axhline(y=MAX(fichier,caracteristique,capteurr),label='maximum',color='pink')
-    l3=plt.axhline(y=MOYENNE(fichier,caracteristique,capteurr),label='maximum',color='magenta')
-    plt.legend([l1,l2,l3], ['minimum', 'maximum', 'moyenne'],loc = 'upper right',frameon = True, title = 'Legende')
+    l1=plt.axhline(y=MIN(fichier,caractéristique,capteur),label='minimum',color='red')
+    l2=plt.axhline(y=MAX(fichier,caractéristique,capteur),label='maximum',color='pink')
+    l3=plt.axhline(y=MOYENNE(fichier,caractéristique,capteur),label='maximum',color='magenta')
+    plt.legend([l1,l2,l3], ['minimum', 'maximum', 'moyenne'],loc = 'upper right',frameon = True, title = 'Légende')
     # plt.legend('variance=VARIANCE(fichier,caracteristique,capteurr)')
     plt.show()
