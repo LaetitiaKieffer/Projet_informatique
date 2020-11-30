@@ -22,6 +22,28 @@ def convertion(capteur):
     return Liste
 #print (convertion(1))
 
+
+#convertion avec un tableau
+def convertion_dataframe(fichier,capteur):
+    data=pd.read_csv(fichier,delimiter=';')
+    data=data.loc[data['id']==capteur]
+    data['sent_at_converti'] = datetime.strptime(data.loc['sent_at'],"%Y-%m-%d %H:%M:%S+02:00")
+    return data
+
+#essai moyenne
+def MOYENNE(fichier,caractéristique,capteur,start_date,end_date):
+    data=pd.read_csv(fichier,delimiter=';')
+    moy=0
+    data=data.loc[data['id']==capteur]
+    L=convertion(capteur)
+    start_date_converti=datetime.strptime(start_date,"%Y-%m-%d")
+    end_date_converti=datetime.strptime(end_date,"%Y-%m-%d")
+    data=data.loc[start_date_converti<=L[i]<=end_date_converti]
+    for index,row in data.iterrows():
+        moy+=row[caractéristique]
+    moy=moy/data.shape[0]
+    return moy
+
 def affichercourbes(caracteristique,capteurr):
     data_capteur=data.loc[data['id']==capteurr]
     plt.plot_date(matplotlib.dates.date2num(convertion(capteurr)),data_capteur[caracteristique],linestyle='-',marker=None)
