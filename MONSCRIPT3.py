@@ -12,7 +12,7 @@ os.chdir("C:/EIVP")
 fichier="EIVP_KM.csv"
 data=pd.read_csv(fichier,delimiter=';')
 
-#méthode avec des listes
+#méthode 1 : avec des listes
 def alpha(fichier,capteur):
     data =pd.read_csv(fichier,delimiter=';')
     data=data.loc[data['id']==capteur]
@@ -42,7 +42,7 @@ def humidex(fichier,capteur):
         H.append(d)
     return H
 
-#méthode avec le dataframe
+#méthode 2 : avec le dataframe
 
 #définition des constantes
 a=17.27
