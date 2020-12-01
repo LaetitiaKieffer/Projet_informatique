@@ -15,6 +15,7 @@ data=pd.read_csv(fichier,delimiter=';')
 fichier='/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet_informatique.csv'
 data =pd.read_csv('/Users/laetitia/Desktop/Projet_informatique_sujet/donnees_projet_informatique.csv',delimiter=';')
 
+#calcul des différentes valeurs statistiques
 def MAX(fichier,caractéristique,capteur):
     data =pd.read_csv(fichier,delimiter=';')
     data=data.loc[data['id']==capteur]
@@ -63,6 +64,7 @@ def MEDIANE(fichier,caractéristique,capteur):
         med=datatrie[caractéristique][int(data.index[0]+n/2)]
     return med
 
+#méthode 1 : convertion avec création d'une liste
 def convertion(capteur):
     L=len(data[data.id==capteur])
     Liste=[]
@@ -70,8 +72,15 @@ def convertion(capteur):
         Liste.append(datetime.strptime(data.sent_at.loc[k+data[data.id==capteur].index[0]],"%Y-%m-%d %H:%M:%S+02:00"))
     return Liste
 
-def afficher_courbes(caracteristique,capteurr):
-    fichier="EIVP_KM.csv"
+#méthode 2 : convertion avec création d'une colonne dans le dataframe
+def convertion_dataframe(fichier,capteur):
+    data=pd.read_csv(fichier,delimiter=';')
+    data=data.loc[data['id']==capteur]
+    data['sent_at_converti']=pd.to_datetime(data['sent_at'])
+    return data
+
+#affichage de la variation d'une caractéristique en fonction du temps avec les valeurs statistiques
+def afficher_courbes_avec_valeurstat(fichier,caracteristique,capteurr):
     data_capteur=data.loc[data['id']==capteurr]
     plt.plot_date(matplotlib.dates.date2num(convertion(capteurr)),data_capteur[caracteristique],linestyle="-",marker=None)
     plt.title (caracteristique+" as a function of time")
@@ -96,3 +105,6 @@ def afficher_courbes(caracteristique,capteurr):
 
 
     plt.show()
+
+
+
